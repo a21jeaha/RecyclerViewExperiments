@@ -6,10 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewInterface{  // we implement owen RecyclerViewInterface to enable a clickable recycleView
 
     private ArrayList<User> userList;
     private RecyclerView recyclerView;
@@ -26,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setAdapter() {
-        RecyclerAdapter adapter = new RecyclerAdapter(userList);
+        RecyclerAdapter adapter = new RecyclerAdapter(userList, this);           // because RecyclerViewInterface was implemented we only need to write "this", to pass it to the adapter
         recyclerView = findViewById(R.id.rvTester);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());   /// try to see if this can be replaced
 
         recyclerView.setLayoutManager(layoutManager);
+
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());    /// what is this ?
 
         recyclerView.setAdapter(adapter);
 
@@ -58,5 +61,10 @@ public class MainActivity extends AppCompatActivity {
         userList.add(new User("Chris"));
         userList.add(new User("Ninja"));
         userList.add(new User("Hanna"));
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
     }
 }
