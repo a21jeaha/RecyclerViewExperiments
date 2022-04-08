@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     private ArrayList<User> userList;
     private RecyclerView recyclerView;
 
+    RecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     }
 
     private void setAdapter() {
-        RecyclerAdapter adapter = new RecyclerAdapter(userList, this);           // because RecyclerViewInterface was implemented we only need to write "this", to pass it to the adapter
+        adapter = new RecyclerAdapter(userList, this);
+        // because RecyclerViewInterface was implemented we only need to write "this", to pass it to the adapter
         recyclerView = findViewById(R.id.rvTester);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());   /// try to see if this can be replaced
@@ -66,5 +68,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     @Override
     public void onItemClick(int position) {
 
+    }
+
+    @Override
+    public void onLongItemClick(int position) { // this method removes the user from the position specified
+        userList.remove(position);
+        adapter.notifyItemRemoved(position); // the adapter needs to know of the changes
     }
 }

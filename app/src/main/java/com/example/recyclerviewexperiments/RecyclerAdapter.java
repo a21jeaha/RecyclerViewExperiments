@@ -47,6 +47,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                     }
                 }
             });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if(recyclerViewInterface != null){
+
+                        int pos = getAdapterPosition();     //Gets the current position of the adapter
+
+                        if(pos != RecyclerView.NO_POSITION){            // as long as there is something in the recyclerView
+                            recyclerViewInterface.onLongItemClick(pos);
+                            Log.d ("klick","klickklick");
+                        }
+                    }
+                    return true;
+                }
+            });
         }
     }
 
